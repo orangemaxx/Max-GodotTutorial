@@ -1,11 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://y527fx5osl3a"]
+[gd_scene load_steps=17 format=3 uid="uid://y527fx5osl3a"]
 
 [ext_resource type="PackedScene" uid="uid://dg46se5hr44qs" path="res://scenes/player.tscn" id="1_i51rh"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_vme11"]
 [ext_resource type="Texture2D" uid="uid://cdryiih1gowme" path="res://assets/sprites/world_tileset.png" id="2_7ha0d"]
 [ext_resource type="PackedScene" uid="uid://b84vc7nyafrxf" path="res://scenes/platform.tscn" id="3_j7am2"]
 [ext_resource type="PackedScene" uid="uid://bjvxtfdi8o42r" path="res://scenes/coin.tscn" id="4_tglga"]
 [ext_resource type="PackedScene" uid="uid://ciivyhw4ievml" path="res://scenes/kill_zone.tscn" id="5_g52f4"]
+[ext_resource type="FontFile" uid="uid://luw65887lbbh" path="res://assets/fonts/PixelOperator8.ttf" id="6_2k466"]
 [ext_resource type="PackedScene" uid="uid://djoxevpjf8qf8" path="res://scenes/slime.tscn" id="6_tbbs7"]
+[ext_resource type="FontFile" uid="uid://dkx7piaxxqapr" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="9_4al07"]
+[ext_resource type="AudioStream" uid="uid://c7bf0vlndsu6u" path="res://assets/music/time_for_adventure.mp3" id="10_s8hie"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0c0k"]
 texture = ExtResource("2_7ha0d")
@@ -452,6 +456,22 @@ _data = {
 
 [node name="Game" type="Node2D"]
 
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_vme11")
+
+[node name="ScoreLabel" type="Label" parent="GameManager"]
+offset_left = -58.0
+offset_top = 21.0
+offset_right = 69.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.0117647, 0.14902, 0.34902, 1)
+theme_override_fonts/font = ExtResource("9_4al07")
+theme_override_font_sizes/font_size = 8
+text = "You have no coins :("
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rt62e")
 format = 2
@@ -505,3 +525,30 @@ shape = SubResource("WorldBoundaryShape2D_y2abd")
 
 [node name="Slime" parent="." instance=ExtResource("6_tbbs7")]
 position = Vector2(56, 1)
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Labels"]
+offset_left = 35.0
+offset_top = -45.0
+offset_right = 122.0
+offset_bottom = -22.0
+theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
+theme_override_fonts/font = ExtResource("6_2k466")
+theme_override_font_sizes/font_size = 8
+text = "Space To Jump"
+
+[node name="Label2" type="Label" parent="Labels"]
+offset_left = 203.0
+offset_top = -56.0
+offset_right = 411.0
+offset_bottom = -33.0
+theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
+theme_override_fonts/font = ExtResource("6_2k466")
+theme_override_font_sizes/font_size = 8
+text = "Please Do Not throw yourself into
+the void there is a platform"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_s8hie")
+autoplay = true
