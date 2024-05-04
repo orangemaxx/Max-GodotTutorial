@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://y527fx5osl3a"]
+[gd_scene load_steps=12 format=3 uid="uid://y527fx5osl3a"]
 
 [ext_resource type="PackedScene" uid="uid://dg46se5hr44qs" path="res://scenes/player.tscn" id="1_i51rh"]
 [ext_resource type="Texture2D" uid="uid://cdryiih1gowme" path="res://assets/sprites/world_tileset.png" id="2_7ha0d"]
 [ext_resource type="PackedScene" uid="uid://b84vc7nyafrxf" path="res://scenes/platform.tscn" id="3_j7am2"]
+[ext_resource type="PackedScene" uid="uid://bjvxtfdi8o42r" path="res://scenes/coin.tscn" id="4_tglga"]
+[ext_resource type="PackedScene" uid="uid://ciivyhw4ievml" path="res://scenes/kill_zone.tscn" id="5_g52f4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0c0k"]
 texture = ExtResource("2_7ha0d")
@@ -445,6 +447,8 @@ _data = {
 "RESET": SubResource("Animation_dcb4m")
 }
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y2abd"]
+
 [node name="Game" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -458,6 +462,7 @@ position = Vector2(0, -1)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 1)
 zoom = Vector2(4, 4)
+limit_bottom = 120
 position_smoothing_enabled = true
 
 [node name="Platform" parent="." instance=ExtResource("3_j7am2")]
@@ -471,3 +476,23 @@ libraries = {
 "": SubResource("AnimationLibrary_ik0wp")
 }
 autoplay = "Move"
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("4_tglga")]
+position = Vector2(97, -9)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("4_tglga")]
+position = Vector2(408, -28)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("4_tglga")]
+position = Vector2(182, -69)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("4_tglga")]
+position = Vector2(55, -111)
+
+[node name="KillZone" parent="." instance=ExtResource("5_g52f4")]
+position = Vector2(51, 115)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+shape = SubResource("WorldBoundaryShape2D_y2abd")
